@@ -1,0 +1,24 @@
+#cloud-config
+users:
+  - name: ubuntu #Benutzername
+    sudo: ALL=(ALL) NOPASSWD:ALL #sudo-Regeln für diesen Benutzer
+    groups: users, admin # Die Gruppen indenen der User hinzugefügt wird
+    home: /home/ubuntu # Homeverzeichnis
+    shell: /bin/bash # Standart Konsole
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCJqxXnSuCSEzND9bhzUK8x2Bmwf+izomEX1tu8tGzcvfysu2GpNXx3NWTxbxBde2IqLiDhnZzsDno2hh2yXSRNxbExsa+Rv2R8RRXHkELX/jBz/7sKn5lSk5kE80Vi7tLAo1b4Mb2v6sWCFCjHWdL6SUfQFKQhRZtpNFnCswnNfXId8uNu4ICGbWmZnMaghgsw6+Ah/l6wj+JPpioUOdRL/Gt+Hu0GSpsAxgXFAInUefKgfl9W4FOK8q43OvWjDPJfMRh+YWamtzrZ5a7LirhbNsf8FQKyIEwWoCMCfFelIMYKBKLHmS8y3YseNPKzlHSCfX/ITyw80RCKwdQ9PRGF # öffentlicher SSH-Schlüssel zur Authentifizierung des Benutzers 
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0WGP1EZykEtv5YGC9nMiPFW3U3DmZNzKFO5nEu6uozEHh4jLZzPNHSrfFTuQ2GnRDSt+XbOtTLdcj26+iPNiFoFha42aCIzYjt6V8Z+SQ9pzF4jPPzxwXfDdkEWylgoNnZ+4MG1lNFqa8aO7F62tX0Yj5khjC0Bs7Mb2cHLx1XZaxJV6qSaulDuBbLYe8QUZXkMc7wmob3PM0kflfolR3LE7LResIHWa4j4FL6r5cQmFlDU2BDPpKMFMGUfRSFiUtaWBNXFOWHQBC2+uKmuMPYP4vJC9sBgqMvPN/X2KyemqdMvdKXnCfrzadHuSSJYEzD64Cve5Zl9yVvY4AqyBD # öffentlicher Schlüssel NUY
+ssh_pwauth: false # Passwort Authentifizierung fürr SSH ist deaktiviert
+disable_root: false # Root zugriff ist aktiviert
+package_update: true # Pakete werden während der Einrichtung aktualisiert
+packages:
+  - curl # curl wird installiert
+  - wget # wget wird installiert
+  - mariadb-server  # Maria-DB SErver wird installiert
+
+runcmd:
+   - sudo mysql -sfu root -e "GRANT ALL ON *.* TO 'admin'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;" # Gibt dem user admin volle Rechte auf alle Datenbanken 
+   - sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf # Ändert die MySQL Kofiguration damit der Server von aussen erreichbar ist
+   - sudo systemctl restart mariadb.service # Startet maraiadb neu
+
+final_message: "Database server setup completed." 
