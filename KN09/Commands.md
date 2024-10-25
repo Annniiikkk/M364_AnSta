@@ -16,15 +16,15 @@ mysql -h 3.89.219.138 -u admin -p
 
 ## Commands um KN05 mit CLI nachzubauen
 
-# Erstellen eines Subnetzes
+### Erstellen eines Subnetzes
 aws ec2 create-subnet --vpc-id vpc-0123456789abcdef0 --cidr-block 10.0.1.0/24 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=subnet-kn09}]
 
-# Erstellen einer Security Group
+### Erstellen einer Security Group
 aws ec2 create-security-group --group-name my-security-group --description "My security group" --vpc-id vpc-0123456789abcdef0
 
-# Hinzufügen von Regeln zur Security Group
+### Hinzufügen von Regeln zur Security Group
 aws ec2 authorize-security-group-ingress --group-id sg-0123456789abcdef0 --protocol tcp --port 3306 --cidr 0.0.0.0/0
 
-# Instanz erstellen
+### Instanz erstellen
 aws ec2 run-instances --image-id ami-0866a3c8686eaeeba --count 1 --instance-type t2.micro --key-name key1 --security-group-ids sg-02a967c62c3a780de --subnet-id subnet-00c74eaa0af094051 --user-data file://C:\Projects\example\KN09\cloud-init.yaml
 
