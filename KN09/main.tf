@@ -1,6 +1,6 @@
 # Provider-Configuration
 provider "aws" {
-  region = "us-east-1"  # Passen Sie die Region nach Bedarf an
+  region = "us-east-1" 
 }
 
 # Create security group
