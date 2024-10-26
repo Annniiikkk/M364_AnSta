@@ -4,6 +4,8 @@ aws ec2 describe-instances
 
 aws ec2 stop-instances --instance-ids i-06a5f02403aaa1483 
 
+aws ec2 describe-instances --instance-ids i-06a5f02403aaa1483
+
 aws ec2 start-instances --instance-ids i-06a5f02403aaa1483 
 
 aws ec2 run-instances --image-id ami-0866a3c8686eaeeba --count 1 --instance-type t2.micro --key-name anik --security-group-ids sg-02a967c62c3a780de --subnet-id subnet-00c74eaa0af094051 --user-data file://C:\Projects\M364_AnSta\KN09\cloud-init.yaml
