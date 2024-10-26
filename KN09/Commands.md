@@ -1,4 +1,4 @@
-## Commands
+# Commands
 
 aws ec2 describe-instances
 
@@ -16,7 +16,7 @@ mysql -h 3.89.219.138 -u admin -p
 
 
 
-## Commands um KN05 mit CLI nachzubauen
+# Commands um KN05 mit CLI nachzubauen
 
 ### Erstellen eines Subnetzes
 aws ec2 create-subnet --vpc-id vpc-0123456789abcdef0 --cidr-block 10.0.1.0/24 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=subnet-kn09}]
@@ -32,7 +32,7 @@ aws ec2 run-instances --image-id ami-0866a3c8686eaeeba --count 1 --instance-type
 
 
 
-## Terraform Commands
+# Terraform Commands
 
 ### Installiert den Command choco
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
